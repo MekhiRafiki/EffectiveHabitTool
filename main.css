@@ -1,1 +1,28 @@
-
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+.flex-container {
+  display:flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+#roles {
+  background-color: green;
+  width: 100%;
+  height: 100%;
+}
+#priorities {
+  background-color: yellow;
+  width: 100%;
+  height: 100%;
+}
+#tasks{
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}

@@ -2,12 +2,49 @@
 
 <html>
 	<head>
-		<title>Mekhi's Site</title>
+		<title>Effective Habits</title>
+
 		<meta charset="utf-8" />
+		<!-- StyleSheets -->
 		<link rel="stylesheet" href="main.css" />
-		<script type="text/javascript" src="main.js"></script>
+		<!-- Scripts -->
+		<script type="text/javascript" src="script.js"></script>
 	</head>
+
+
 	<body>
+		<header>
+			<h1> Effective Habits - Weekly Accountability </h1>
+		</header>
+
+		<div class = "flex-container">
+			<div id="roles">
+				<!-- Roles to Goals organization -->
+				<p> Tasks </p>
+			</div>
+
+			<div id = "priorities">
+				<!-- Weekly priorities check off list-->
+				<p> priorities </p>
+			</div>
+
+			<div id = "tasks">
+				<!-- Tasks addition list -->
+				<p> Add a Task using the field below </p>
+				<textarea id="newTaskText" type="text" placeholder="Send in Google Application"></textarea>
+				<input id = "taskSubmit" type= "submit" class="btn"></input>
+				<h2> Current Tasks </h2>
+				<div id = "TaskListDiv">
+					<ul id = "taskList">
+					</ul>
+				</div>
+
+			</div>
+
+			<!-- Future additions below, like integrating Google Calendar -->
+		<div>
 
   </body>
+
+
   </html>
