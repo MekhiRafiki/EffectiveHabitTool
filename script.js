@@ -28,7 +28,7 @@ function load() {
     if(event.target.type === "submit"){
       	const tasksInput = document.getElementById("newTaskText");
         const taskText = tasksInput.value;
-        tasksInput.innerHTML = "";
+        tasksInput.value = "";
         console.log(taskText);
 
         var node = document.createElement("LI");
