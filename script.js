@@ -19,6 +19,26 @@ function load() {
       event.path[2].getElementsByTagName('textarea')[0].value ='';
     }
   });
+
+  /* Weekly Priority Area */
+  const prioritySubmitBtn = document.getElementById("prioritySubmit");
+  const priorityList = document.getElementById("priorityList");
+
+  prioritySubmitBtn.addEventListener("click", event =>{
+    event.preventDefault();
+    if(event.target.type === "submit"){
+      	const priorityInput = document.getElementById("newPriorityText");
+        const priorityText = priorityInput.value;
+        priorityInput.value = "";
+        console.log(priorityText);
+
+        var node = document.createElement("LI");
+        var textnode = document.createTextNode(priorityText);
+        node.appendChild(textnode);
+        priorityList.appendChild(node);
+    }
+  });
+
   /* Task Submission Area */
   const taskSubmitBtn = document.getElementById("taskSubmit");
   const tasksList = document.getElementById("taskList");
