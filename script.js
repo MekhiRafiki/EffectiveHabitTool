@@ -1,9 +1,6 @@
 
 
-
-
-function load() {
-
+function loadRoleGoals() {
   /* Roles -> Goals Area */
   const rolesPane = document.getElementById("roles");
   rolesPane.addEventListener("click", event=>{
@@ -19,7 +16,8 @@ function load() {
       event.path[2].getElementsByTagName('textarea')[0].value ='';
     }
   });
-
+}
+function loadWeeklyPriority() {
   /* Weekly Priority Area */
   const prioritySubmitBtn = document.getElementById("prioritySubmit");
   const priorityList = document.getElementById("priorityList");
@@ -27,7 +25,7 @@ function load() {
   prioritySubmitBtn.addEventListener("click", event =>{
     event.preventDefault();
     if(event.target.type === "submit"){
-      	const priorityInput = document.getElementById("newPriorityText");
+        const priorityInput = document.getElementById("newPriorityText");
         const priorityText = priorityInput.value;
         priorityInput.value = "";
         console.log(priorityText);
@@ -38,7 +36,8 @@ function load() {
         priorityList.appendChild(node);
     }
   });
-
+}
+function loadTaskSubmit(){
   /* Task Submission Area */
   const taskSubmitBtn = document.getElementById("taskSubmit");
   const tasksList = document.getElementById("taskList");
@@ -46,7 +45,7 @@ function load() {
   taskSubmitBtn.addEventListener("click", event =>{
     event.preventDefault();
     if(event.target.type === "submit"){
-      	const tasksInput = document.getElementById("newTaskText");
+        const tasksInput = document.getElementById("newTaskText");
         const taskText = tasksInput.value;
         tasksInput.value = "";
         console.log(taskText);
@@ -57,6 +56,16 @@ function load() {
         tasksList.appendChild(node);
     }
   });
+}
+
+function load() {
+  loadRoleGoals();
+  loadWeeklyPriority();
+  loadTaskSubmit();
+
+
+
+
 
 }
 
