@@ -22,29 +22,35 @@ function loadRoleGoals() {
   });
 }
 function loadWeeklyPriority() {
+  currWPs = [];
   if (!localStorage.WP) {
     // default to empty array
     localStorage.WP = JSON.stringify([])
+  } else {
+    currWPs = JSON.parse(localStorage.WP);
+    populateWPs(currWPs);
   }
   /* Weekly Priority Area */
   const prioritySubmitBtn = document.getElementById("prioritySubmit");
-  const priorityList = document.getElementById("priorityList");
 
   prioritySubmitBtn.addEventListener("click", event =>{
     event.preventDefault();
     if(event.target.type === "submit"){
         const priorityInput = document.getElementById("newPriorityText");
-        const priorityText = priorityInput.value;
-        priorityInput.value = "";
-        console.log(priorityText);
 
-        var node = document.createElement("LI");
-        var textnode = document.createTextNode(priorityText);
-        node.appendChild(textnode);
-        priorityList.appendChild(node);
+        /* Add to Local Storage */
+        var newWP = {
+          wp: priorityInput.value
+        }
+        currWPs.push(newWP);
+        localStorage.WP = JSON.stringify(currWPs);
+
+        priorityInput.value = "";
+        populateWPs(currWPs);
     }
   });
 }
+
 function loadTaskSubmit(){
   currTasks = [];
   if (!localStorage.T) {
@@ -55,7 +61,7 @@ function loadTaskSubmit(){
     currTasks = JSON.parse(localStorage.T);
     populateCurrTasks(currTasks);
   }
-  
+
   /* Task Submission Area */
   const taskSubmitBtn = document.getElementById("taskSubmit");
   taskSubmitBtn.addEventListener("click", event =>{
@@ -91,6 +97,17 @@ function populateCurrTasks(currTasks){
     var textnode = document.createTextNode(element.task);
     node.appendChild(textnode);
     tasksList.appendChild(node);
+  });
+}
+
+function populateWPs(currWPs){
+  const priorityList = document.getElementById("priorityList");
+  priorityList.innerHTML = "";
+  currWPs.forEach(function(element){
+    var node = document.createElement("LI");
+    var textnode = document.createTextNode(element.wp);
+    node.appendChild(textnode);
+    priorityList.appendChild(node);
   });
 }
 
