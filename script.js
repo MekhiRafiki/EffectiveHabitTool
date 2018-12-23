@@ -1,6 +1,10 @@
 
 
 function loadRoleGoals() {
+  if (!localStorage.RG) {
+    // default to empty array
+    localStorage.RG = JSON.stringify([])
+  }
   /* Roles -> Goals Area */
   const rolesPane = document.getElementById("roles");
   rolesPane.addEventListener("click", event=>{
@@ -18,6 +22,10 @@ function loadRoleGoals() {
   });
 }
 function loadWeeklyPriority() {
+  if (!localStorage.WP) {
+    // default to empty array
+    localStorage.WP = JSON.stringify([])
+  }
   /* Weekly Priority Area */
   const prioritySubmitBtn = document.getElementById("prioritySubmit");
   const priorityList = document.getElementById("priorityList");
@@ -38,35 +46,52 @@ function loadWeeklyPriority() {
   });
 }
 function loadTaskSubmit(){
+  currTasks = [];
+  if (!localStorage.T) {
+    // default to empty array
+    localStorage.T = JSON.stringify(currTasks)
+  } else {
+    // Populate the UL
+    currTasks = JSON.parse(localStorage.T);
+    populateCurrTasks(currTasks);
+  }
+  
   /* Task Submission Area */
   const taskSubmitBtn = document.getElementById("taskSubmit");
-  const tasksList = document.getElementById("taskList");
-
   taskSubmitBtn.addEventListener("click", event =>{
     event.preventDefault();
     if(event.target.type === "submit"){
         const tasksInput = document.getElementById("newTaskText");
-        const taskText = tasksInput.value;
-        tasksInput.value = "";
-        console.log(taskText);
+        /* Add to Local Storage */
+        var newTask = {
+          task: tasksInput.value
+        }
+        currTasks.push(newTask);
+        localStorage.T = JSON.stringify(currTasks);
 
-        var node = document.createElement("LI");
-        var textnode = document.createTextNode(taskText);
-        node.appendChild(textnode);
-        tasksList.appendChild(node);
+        tasksInput.value = ""; // Clear the screen
+
+        populateCurrTasks(currTasks);
     }
   });
 }
 
 function load() {
+  // localStorage.clear(); // Testing Purposes
   loadRoleGoals();
   loadWeeklyPriority();
   loadTaskSubmit();
+}
 
-
-
-
-
+function populateCurrTasks(currTasks){
+  const tasksList = document.getElementById("taskList");
+  taskList.innerHTML = "";
+  currTasks.forEach(function(element){
+    var node = document.createElement("LI");
+    var textnode = document.createTextNode(element.task);
+    node.appendChild(textnode);
+    tasksList.appendChild(node);
+  });
 }
 
 
