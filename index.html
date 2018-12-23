@@ -22,71 +22,20 @@
 				<!-- Roles to Goals organization -->
 				<h2> Roles to Goals </h2>
 
-				<div id = "Roles to Goals List" class= "RGFlex">
+				<div id = "Roles2GoalsList" class= "RGFlex">
+					<!-- To Be Populate by JS pull from Database -->
+				</div>
+				<!-- Below will be the pop up form for adding a new Role -->
+				<button class="open-button" onclick="openForm()">Open Form</button>
+				<div class="form-popup" id="myForm">
+				  <form action="/action_page.php" class="form-container">
 
-					<div class = "RoleGoal">
-						<!-- Roles to Goal -->
-						<h3> TPS Director </h3>
-						<ul id = "goalsForRole"></ul>
-						<div class = "roleGoalAdd">
-							<textarea id="newGoal" type="text" style= "width:80%" ></textarea>
-							<input id = "goalSubmit" type= "submit" class="btn"></input>
-						</div>
-					</div>
+				    <label><b>New Role</b></label>
+				    <input id = "NewRoleField" type="text" placeholder="Club President" required>
 
-					<div class = "RoleGoal">
-						<!-- Roles to Goal -->
-						<h3> BCS President </h3>
-						<ul id = "goalsForRole"></ul>
-						<div class = "roleGoalAdd">
-							<textarea id="newGoal" type="text" style= "width:80%" ></textarea>
-							<input id = "goalSubmit" type= "submit" class="btn"></input>
-						</div>
-					</div>
-
-
-					<div class = "RoleGoal">
-						<!-- Roles to Goal -->
-						<h3> TPS Mentor </h3>
-						<ul id = "goalsForRole"></ul>
-						<div class = "roleGoalAdd">
-							<textarea id="newGoal" type="text" style= "width:80%" ></textarea>
-							<input id = "goalSubmit" type= "submit" class="btn"></input>
-						</div>
-					</div>
-
-
-					<div class = "RoleGoal">
-						<!-- Roles to Goal -->
-						<h3> Barber </h3>
-						<ul id = "goalsForRole"></ul>
-						<div class = "roleGoalAdd">
-							<textarea id="newGoal" type="text" style= "width:80%" ></textarea>
-							<input id = "goalSubmit" type= "submit" class="btn"></input>
-						</div>
-					</div>
-
-
-					<div class = "RoleGoal">
-						<!-- Roles to Goal -->
-						<h3> Student </h3>
-						<ul id = "goalsForRole"></ul>
-						<div class = "roleGoalAdd">
-							<textarea id="newGoal" type="text" style= "width:80%" ></textarea>
-							<input id = "goalSubmit" type= "submit" class="btn"></input>
-						</div>
-					</div>
-
-					<div class = "RoleGoal">
-						<!-- Roles to Goal -->
-						<h3> SWE Professional </h3>
-						<ul id = "goalsForRole"></ul>
-						<div class = "roleGoalAdd">
-							<textarea id="newGoal" type="text" style= "width:80%" ></textarea>
-							<input id = "goalSubmit" type= "submit" class="btn"></input>
-						</div>
-					</div>
-
+				    <button type="submit" class="btn" onclick="newRole()">Submit</button>
+				    <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+				  </form>
 				</div>
 
 			</div>
