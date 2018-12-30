@@ -97,15 +97,32 @@ function loadTaskSubmit(){
         populateCurrTasks(currTasks);
     }
   });
+
+  /* Specific Task Action Area */
+  const taskList = document.getElementById("TaskListDiv");
+  taskList.addEventListener("click", event =>{
+    event.preventDefault();
+    const taskName = event.path[1].getElementsByTagName('h4')[0].innerHTML;
+    currTasks = JSON.parse(localStorage.T);
+    for (var i = 0; i < currTasks.length; i++){
+      if (currTasks[i].task === taskName){
+        currTasks.splice(i, 1);
+        break;
+      }
+    }
+    localStorage.T = JSON.stringify(currTasks);
+    populateCurrTasks(currTasks);
+  });
 }
 
 function populateCurrTasks(currTasks){
   const tasksList = document.getElementById("taskList");
   taskList.innerHTML = "";
   currTasks.forEach(function(element){
-    var node = document.createElement("LI");
-    var textnode = document.createTextNode(element.task);
-    node.appendChild(textnode);
+    var node = createTaskElement(element.task)
+    // document.createElement("LI");
+    // var textnode = document.createTextNode(element.task);
+    // node.appendChild(textnode);
     tasksList.appendChild(node);
   });
 }
@@ -138,6 +155,12 @@ function createRGElement(element){
       tag("textarea", {id:"newGoal", type: "text", style: "width:80%"}, []),
       tag("input", {id:"goalSubmit", type: "submit", class:"btn"}, [])
     ])
+  ])
+}
+function createTaskElement(task){
+  return tag("div", {class: "specificTask"}, [
+    tag("h4", {}, task),
+    tag("input", {type: "submit", class: "btn"}, [])
   ])
 }
 

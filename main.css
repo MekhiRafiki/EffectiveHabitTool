@@ -46,7 +46,14 @@ html, body {
   display: flex;
   flex-direction: row;
 }
-
+.taskList{
+  display: flex;
+  flex-direction: column;
+}
+.specificTask{
+  display: flex;
+  flex-direction: row;
+}
 /* Style for CSS W3 School */
 {box-sizing: border-box;}
 
