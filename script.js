@@ -23,16 +23,34 @@ function loadRoleGoals() {
       });
       role.goals.push(newGoal);
       localStorage.RG = JSON.stringify(currRGs);
+      console.log(currRGs);
 
-      // ADD TO SCREEN
-      const goalList = event.path[2].getElementsByTagName('ul')[0];
+      populateRGs(currRGs);
 
+    } else if(event.target.id === "goalComplete"){
+      const role = event.path[3].getElementsByTagName('h3')[0].innerHTML;
+      const completed_goal = event.path[1].getElementsByTagName('h4')[0].innerHTML;
+      currRGs = JSON.parse(localStorage.RG);
+      for(var i = 0; i < currRGs.length; i++){
+        if(currRGs[i].role === role){
+          console.log("Found the role");
+          goals = currRGs[i].goals;
+          console.log(goals);
+          console.log(completed_goal);
 
-      var node = document.createElement("LI");
-      var textnode = document.createTextNode(newGoal);
-      node.appendChild(textnode);
-      goalList.appendChild(node);
-      event.path[2].getElementsByTagName('textarea')[0].value ='';
+          for(var j = 0; j < goals.length; j++){
+            if(goals[j] === completed_goal){
+              console.log("found the goal")
+              goals.splice(j, 1);
+              break;
+            }
+          }
+          break;
+        }
+      }
+      localStorage.RG = JSON.stringify(currRGs);
+      console.log(currRGs);
+      populateRGs(currRGs);
     }
   });
 }
@@ -194,7 +212,7 @@ function createWeeklyPriorityElement(priority){
 function createGoalElement(goal){
   return tag("div", {class: "specificTask"}, [
     tag("h4", {}, goal),
-    tag("input", {type: "submit", class: "btn"}, [])
+    tag("input", {type: "submit", class: "btn", id: "goalComplete"}, [])
   ])
 }
 
