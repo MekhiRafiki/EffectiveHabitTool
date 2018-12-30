@@ -66,6 +66,26 @@ function loadWeeklyPriority() {
         populateWPs(currWPs);
     }
   });
+
+  /* Specific Priority Action */
+  const priorityListDiv = document.getElementById("PriorityListDiv")
+  priorityListDiv.addEventListener("click", event=>{
+    event.preventDefault();
+    if(event.target.type === "submit"){
+      const wp_name = event.path[1].getElementsByTagName('h4')[0].innerHTML;
+
+      currWPs = JSON.parse(localStorage.WP);
+      for (var i = 0; i < currWPs.length; i++){
+        if (currWPs[i].wp === wp_name){
+          currWPs.splice(i, 1);
+          break;
+        }
+      }
+      localStorage.WP = JSON.stringify(currWPs);
+      populateWPs(currWPs);
+    }
+
+  });
 }
 
 function loadTaskSubmit(){
@@ -127,9 +147,6 @@ function populateCurrTasks(currTasks){
   taskList.innerHTML = "";
   currTasks.forEach(function(element){
     var node = createTaskElement(element.task)
-    // document.createElement("LI");
-    // var textnode = document.createTextNode(element.task);
-    // node.appendChild(textnode);
     tasksList.appendChild(node);
   });
 }
@@ -138,9 +155,7 @@ function populateWPs(currWPs){
   const priorityList = document.getElementById("priorityList");
   priorityList.innerHTML = "";
   currWPs.forEach(function(element){
-    var node = document.createElement("LI");
-    var textnode = document.createTextNode(element.wp);
-    node.appendChild(textnode);
+    var node = createWeeklyPriorityElement(element.wp)
     priorityList.appendChild(node);
   });
 }
@@ -170,13 +185,23 @@ function createTaskElement(task){
     tag("input", {type: "submit", class: "btn"}, [])
   ])
 }
+function createWeeklyPriorityElement(priority){
+  return tag("div", {class: "specificTask"}, [
+    tag("h4", {}, priority),
+    tag("input", {type: "submit", class: "btn"}, [])
+  ])
+}
+function createGoalElement(goal){
+  return tag("div", {class: "specificTask"}, [
+    tag("h4", {}, goal),
+    tag("input", {type: "submit", class: "btn"}, [])
+  ])
+}
 
 function createGoals(goals){
   toReturn = [];
   goals.forEach(function(goal){
-    var node = document.createElement("LI");
-    var textnode = document.createTextNode(goal);
-    node.appendChild(textnode);
+    var node = createGoalElement(goal)
     toReturn.push(node);
   });
   return toReturn;
