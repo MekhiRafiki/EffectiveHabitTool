@@ -85,14 +85,21 @@ function loadTaskSubmit(){
     event.preventDefault();
     if(event.target.type === "submit"){
         const tasksInput = document.getElementById("newTaskText");
+        const taskPriority = document.getElementById("newTaskPriority");
         /* Add to Local Storage */
         var newTask = {
-          task: tasksInput.value
+          task: tasksInput.value,
+          priority: taskPriority.value
         }
         currTasks.push(newTask);
+        // Sort by priority
+        currTasks.sort(function(a,b){
+          return a.priority - b.priority;
+        });
         localStorage.T = JSON.stringify(currTasks);
 
         tasksInput.value = ""; // Clear the screen
+        taskPriority.value ="";
 
         populateCurrTasks(currTasks);
     }
