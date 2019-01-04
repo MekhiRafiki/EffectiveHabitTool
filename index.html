@@ -7,6 +7,7 @@
 		<meta charset="utf-8" />
 		<!-- StyleSheets -->
 		<link rel="stylesheet" href="main.css" />
+		<link rel="stylesheet" href="normalize.css" />
 		<!-- Scripts -->
 		<script type="text/javascript" src="script.js"></script>
 	</head>
@@ -14,7 +15,7 @@
 
 	<body>
 		<header>
-			<h1> Effective Habits - Weekly Accountability </h1>
+			<h1 style = "color: white"> Effective Habits - Weekly Accountability </h1>
 		</header>
 
 		<div class = "flex-container">
@@ -43,8 +44,12 @@
 			<div id = "priorities">
 				<!-- Weekly priorities check off list-->
 				<h2> Weekly Priorities </h2>
-				<textarea id="newPriorityText" type="text" placeholder="Complete 103 Pset"></textarea>
-				<input id = "prioritySubmit" type= "submit" class="btn"></input>
+				<div id = "AddWeeklyPriority">
+					<h4> Add a New Weekly Priority </h4>
+					<textarea id="newPriorityText" type="text" placeholder="Complete 103 Pset" style="width:85%;"></textarea>
+					<input id = "prioritySubmit" type= "submit" class="btn" style="width:45%; background-color: #4CAF50; color: white;"></input>
+					<input id = "TO_BE_INSERTED" type= "submit" class="btn" style="width:45%; background-color: red; color: white;"></input>
+				</div>
 				<h3> Priority Listing </h3>
 				<div id = "PriorityListDiv">
 					<ul id = "priorityList">
@@ -57,7 +62,7 @@
 				<h2> Daily Task Queue </h2>
 				<textarea id="newTaskText" type="text" placeholder="Send in Google Application"></textarea>
 				<textarea id = "newTaskPriority"type="text" placeholder="Priority"></textarea>
-				
+
 				<input id = "taskSubmit" type= "submit" class="btn"></input>
 				<h3> Current Tasks </h3>
 				<div id = "TaskListDiv">

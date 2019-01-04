@@ -28,6 +28,7 @@ function loadRoleGoals() {
       populateRGs(currRGs);
 
     } else if(event.target.id === "goalComplete"){
+      // This isn't called currently
       const role = event.path[3].getElementsByTagName('h3')[0].innerHTML;
       const completed_goal = event.path[1].getElementsByTagName('h4')[0].innerHTML;
       currRGs = JSON.parse(localStorage.RG);
@@ -89,8 +90,21 @@ function loadWeeklyPriority() {
   const priorityListDiv = document.getElementById("PriorityListDiv")
   priorityListDiv.addEventListener("click", event=>{
     event.preventDefault();
-    if(event.target.type === "submit"){
+    if(event.path[0].id === "PriorityComplete"){
       const wp_name = event.path[1].getElementsByTagName('h4')[0].innerHTML;
+
+      if(event.path[0].id === "PriorityComplete"){
+        if (!localStorage.CT) {
+          // default to empty array
+          localStorage.CT = JSON.stringify([]);
+        } else {
+          // Populate the UL
+          completedTasks = JSON.parse(localStorage.CT);
+          completedTasks.push(wp_name);
+          localStorage.CT = JSON.stringify(completedTasks);
+        }
+      }
+
 
       currWPs = JSON.parse(localStorage.WP);
       for (var i = 0; i < currWPs.length; i++){
@@ -148,6 +162,19 @@ function loadTaskSubmit(){
   taskList.addEventListener("click", event =>{
     event.preventDefault();
     const taskName = event.path[1].getElementsByTagName('h4')[0].innerHTML;
+
+    // Add in a queue for completed Tasks
+    if(event.path[0].id === "TaskComplete"){
+      if (!localStorage.CT) {
+        // default to empty array
+        localStorage.CT = JSON.stringify([]);
+      } else {
+        // Populate the UL
+        completedTasks = JSON.parse(localStorage.CT);
+        completedTasks.push(taskName);
+        localStorage.CT = JSON.stringify(completedTasks);
+      }
+    }
     currTasks = JSON.parse(localStorage.T);
     for (var i = 0; i < currTasks.length; i++){
       if (currTasks[i].task === taskName){
@@ -193,26 +220,28 @@ function createRGElement(element){
     tag("ul", {id: "goalsForRole"}, createGoals(element.goals)),
     tag("div", {class: "roleGoalAdd"}, [
       tag("textarea", {id:"newGoal", type: "text", style: "width:80%"}, []),
-      tag("input", {id:"goalSubmit", type: "submit", class:"btn"}, [])
+      tag("img", {class: "statusBtn", src: "assets/add.png", alt:"Complete", height: "40", width: "60", id: "goalSubmit"}, []),
+
     ])
   ])
 }
 function createTaskElement(task){
   return tag("div", {class: "specificTask"}, [
-    tag("h4", {}, task),
-    tag("input", {type: "submit", class: "btn"}, [])
+    tag("h4", {class: "taskHeader"}, task),
+    tag("img", {class: "statusBtn", src: "assets/CheckMark.png", alt:"Complete", height: "15", width: "15", id: "TaskComplete"}, []),
+    tag("img", {class: "statusBtn", src: "assets/X-out.png", alt:"Cancel", height: "15", width: "15"}, [])
   ])
 }
 function createWeeklyPriorityElement(priority){
   return tag("div", {class: "specificTask"}, [
-    tag("h4", {}, priority),
-    tag("input", {type: "submit", class: "btn"}, [])
+    tag("h4", {class: "taskHeader"}, priority),
+    tag("img", {class: "statusBtn", src: "assets/CheckMark.png", alt:"Complete", height: "15", width: "15", id: "PriorityComplete"}, []),
+    tag("img", {class: "statusBtn", src: "assets/X-out.png", alt:"Cancel", height: "15", width: "15"}, [])
   ])
 }
 function createGoalElement(goal){
   return tag("div", {class: "specificTask"}, [
-    tag("h4", {}, goal),
-    tag("input", {type: "submit", class: "btn", id: "goalComplete"}, [])
+    tag("h4", {}, goal)
   ])
 }
 
@@ -226,7 +255,7 @@ function createGoals(goals){
 }
 
 function load() {
-  // localStorage.clear(); // Testing Purposes
+  //localStorage.clear(); // Testing Purposes
   loadRoleGoals();
   loadWeeklyPriority();
   loadTaskSubmit();
@@ -262,6 +291,7 @@ function newRole(){
   localStorage.RG = JSON.stringify(roles);
 
   populateRGs(roles);
+  closeForm();
 }
 
 /* Credit to CS42 Piazza Assignment*/
