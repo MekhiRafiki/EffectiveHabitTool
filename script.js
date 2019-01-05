@@ -27,6 +27,16 @@ function loadRoleGoals() {
 
       populateRGs(currRGs);
 
+    } else if (event.target.id === "goalsClear"){
+      currRGs = JSON.parse(localStorage.RG);
+      roleName = event.path[2].getElementsByTagName('h3')[0].innerHTML;
+      role = currRGs.find(function(element){
+        return roleName == element.role;
+      });
+      role.goals = [];
+      localStorage.RG = JSON.stringify(currRGs);
+      populateRGs(currRGs);
+
     } else if(event.target.id === "goalComplete"){
       // This isn't called currently
       const role = event.path[3].getElementsByTagName('h3')[0].innerHTML;
@@ -214,8 +224,12 @@ function createRGElement(element){
     tag("ul", {id: "goalsForRole"}, createGoals(element.goals)),
     tag("div", {class: "roleGoalAdd"}, [
       tag("textarea", {id:"newGoal", type: "text", style: "width:80%"}, []),
-      tag("img", {class: "statusBtn", src: "assets/add.png", alt:"Complete", height: "40", width: "60", id: "goalSubmit"}, []),
-
+      tag("button", {class:"btn", id: "goalSubmit"},[
+        tag("i", {class:"fa fa-check"}, [])
+      ]),
+      tag("button", {class:"btn", id:"goalsClear"},[
+        tag("i", {class:"fa fa-close"}, [])
+      ])
     ])
   ])
 }
@@ -248,20 +262,9 @@ function createGoals(goals){
   return toReturn;
 }
 
-function load() {
-  //localStorage.clear(); // Testing Purposes
-  loadRoleGoals();
-  loadWeeklyPriority();
-  loadTaskSubmit();
-
-  var cols = document.querySelectorAll('.specificTask');
-  [].forEach.call(cols, addDnDHandlers);
-}
-
-window.onload = load;
-
 /*
   Draggable Code
+  Thanks to! https://codepen.io/retrofuturistic/pen/tlbHE
 */
 var dragSrcEl = null;
 
@@ -337,7 +340,7 @@ function addDnDHandlers(elem) {
 }
 
 /*
-  Code from W3
+  Thanks for form Template from W3!!
 
 */
 function openForm() {
@@ -411,3 +414,15 @@ function tag(name, attrs, contents) {
 
   return element
 }
+
+function load() {
+  //localStorage.clear(); // Testing Purposes
+  loadRoleGoals();
+  loadWeeklyPriority();
+  loadTaskSubmit();
+
+  var tasks = document.querySelectorAll('.specificTask');
+  [].forEach.call(tasks, addDnDHandlers);
+}
+
+window.onload = load;
