@@ -141,6 +141,13 @@ header h1 a {
   display: flex;
   flex-direction: row;
 }
+.specificTask.dragElem {
+  opacity: 0.4;
+}
+.specificTask.over {
+  //border: 2px dashed #000;
+  border-top: 2px solid blue;
+}
 
 .taskHeader{
   width: 50%;
@@ -149,6 +156,16 @@ header h1 a {
 .statusBtn{
   width: 4%;
   margin-right: 3.5%;
+}
+
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
 }
 /* Style for CSS W3 School */
 {box-sizing: border-box;}
