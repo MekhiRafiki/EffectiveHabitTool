@@ -416,7 +416,7 @@ function tag(name, attrs, contents) {
 }
 
 function load() {
-  //localStorage.clear(); // Testing Purposes
+  // localStorage.clear(); // Testing Purposes
   loadRoleGoals();
   loadWeeklyPriority();
   loadTaskSubmit();
